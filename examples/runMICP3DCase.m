@@ -20,9 +20,9 @@
 % mrstPath('reregister', 'distmesh', pth);
 
 % Required modules
-pth = fullfile(ROOTDIR, 'utils', '3rdparty', 'distmesh');
-mrstPath('reregister', 'distmesh', pth);
-mrstModule add ad-blackoil ad-core ad-micp ad-props co2lab distmesh
+%pth = fullfile(ROOTDIR, 'utils', '3rdparty', 'distmesh');
+%mrstPath('reregister', 'distmesh', pth);
+mrstModule add ad-blackoil ad-core ad-micp ad-props co2lab upr
 
 %% Reservoir geometry/properties and model parameters
 %
@@ -55,7 +55,7 @@ fh = @(p) min(min(hmid + 0.3 * abs(dcircle(p, w, 0, 0)), hmid) .* ...
                   B) + min(hmid + 0.3 * abs(dcircle(p, 0, 0, B)), hmax) ...
                                        .* (abs(dcircle(p, 0, 0, 0)) >= B));
 [p, t] = distmesh2d(fd, fh, hmin, [-L / 2, -W / 2; L / 2, W / 2], ...
-       [-L / 2, -W / 2; L / 2, -W / 2; -L / 2, W / 2; L / 2, W / 2; 0, 0]);
+       [-L / 2, -W / 2; L / 2, -W / 2; -L / 2, W / 2; L / 2, W / 2; 0, 0],true);
 close
 Z = [0 3 10 ht : 10 : ht + hl ht + hl + 3 ht + hl + 10 H];
 G = makeLayeredGrid(pebi(triangleGrid(p, t)), max(size(Z)) - 1);
