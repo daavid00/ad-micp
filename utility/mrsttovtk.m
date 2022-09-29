@@ -72,7 +72,7 @@ along with this file.  If not, see <http://www.gnu.org/licenses/>.
         Text{size(Text,2)+1}=sprintf([forms forms form '\n'], ...
         G.nodes.coords(end,1),0,0);
     elseif G.griddim == 2
-        if 4*G.cells.num==size(G.cells.faces)(1)
+        if 4*G.cells.num==size(G.cells.faces, 1)
             tg = 8;
         else
             tg = 7;
@@ -98,7 +98,7 @@ along with this file.  If not, see <http://www.gnu.org/licenses/>.
     Text{size(Text,2)+1}=sprintf(['\t\t\t\t<DataArray type="UInt8" ' ...
                  'Name="types" NumberOfComponents="1" format="ascii">\n']);
     Text{size(Text,2)+1}=sprintf('\t\t\t\t\t');
-    Text{size(Text,2)+1}=sprintf(repmat(cstrcat(num2str(tg),' '), 1, G.cells.num-1));
+    Text{size(Text,2)+1}=sprintf(repmat([num2str(tg),' '], 1, G.cells.num-1));
     Text{size(Text,2)+1}=sprintf('%d\n',tg);
     Text{size(Text,2)+1}=sprintf('\t\t\t\t</DataArray>\n');
     ii=rldecode(1:G.cells.num, diff(G.cells.facePos), 2)==1;
@@ -150,7 +150,7 @@ along with this file.  If not, see <http://www.gnu.org/licenses/>.
         kk=ll;
         mm=sum(jj)+mm;
         itr=3;
-        for indx=2:size(jjj)(2)-1
+        for indx=2:size(jjj, 2)-1
             j=jjj(indx);
             jj=rldecode(1:G.faces.num, diff(G.faces.nodePos), 2)==j;
             [ll,id,ic]=unique([G.faces.nodes(jj,1)'-1 kk],"stable");
@@ -158,7 +158,7 @@ along with this file.  If not, see <http://www.gnu.org/licenses/>.
             vct(itr)=c;
             kk=ll;
             mm=sum(jj)+mm;
-            itr++;
+            itr=itr+1;
         end 
         offsets{1}=vct;
         faceoffsets{1}=mm+sum(ii)+1;
@@ -176,7 +176,7 @@ along with this file.  If not, see <http://www.gnu.org/licenses/>.
             kk=ll;
             mm=sum(jj)+mm;
             itr=3;
-            for indx=2:size(jjj)(2)-1
+            for indx=2:size(jjj, 2)-1
                 j=jjj(indx);
                 jj=rldecode(1:G.faces.num, diff(G.faces.nodePos), 2)==j;
                 ll=unique([G.faces.nodes(jj,1)'-1 kk],"stable");
@@ -184,7 +184,7 @@ along with this file.  If not, see <http://www.gnu.org/licenses/>.
                 vct(itr)=c;
                 kk=ll;
                 mm=sum(jj)+mm;
-                itr++;
+                itr=itr+1;
             end 
             offsets{i}=vct;
             faceoffsets{i}=mm+sum(ii)+1;
